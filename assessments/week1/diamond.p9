@@ -57,19 +57,19 @@ formulas(assumptions).
 
 %% A1: "The diamond has been stolen!"
 
-        __A1__.
+        DiamondStolen.
 
 %% A2: "If the diamond has been stolen, a thief got into the house."
 
-        __A2__.
+        DiamondStolen -> ThiefInHouse.
 
 %% A3: "If a thief got in, either the door was open or the window was smashed."
 
-        __A3__.
+        ThiefInHouse -> (DoorOpen | WindowSmashed).
 
 %% A4: "The window is not smashed."
 
-        __A4__.
+        - WindowSmashed.
 
 
 end_of_list.
@@ -78,6 +78,6 @@ formulas(goals).
 
 %% GOAL: "The door was open."
 
-          __G__.
+          DoorOpen.
 
 end_of_list.

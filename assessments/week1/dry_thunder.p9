@@ -57,15 +57,15 @@ formulas(assumptions).
 
 %% A1: "A Dry Thunderstorm is defined by the occurence of lightning without rain."
 
-        __A1__.
+        DryThunder -> (Lightning & -Raining).
 
 %% A2: "There is a dry thunderstorm."
 
-        __A2__.
+        DryThunder.
 
 %% A3: "If there is lightning then it is either raining or its hot."
 
-        __A3__.
+        Lightning -> (Raining | Hot).
 
 
 end_of_list.
@@ -74,6 +74,6 @@ formulas(goals).
 
 %% GOAL: "It is hot."
 
-          __G__.
+          Hot.
 
 end_of_list.

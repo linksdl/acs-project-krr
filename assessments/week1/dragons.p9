@@ -57,19 +57,19 @@ formulas(assumptions).
 
 %% A1: "If the dragon destroys the village, the villagers will be homeless unless they take the King's Castle."
 
-        __A1__.
+        (- VillagesTakeCastle | DragonDestroysVillage) -> VillagersHomeless.
 
 %% A2: "If the King is mean then the villagers will take the castle."
 
-        __A2__.
+        KingMean -> VillagesTakeCastle.
 
 %% A3: "If the King is not mean then the dragon won't destroy the village."
 
-        __A3__.
+        - KingMean -> - DragonDestroysVillage.
 
 %% A4: "The dragon destroys the village."
 
-        __A4__.
+        DragonDestroysVillage.
 
 
 end_of_list.
@@ -78,6 +78,6 @@ formulas(goals).
 
 %% GOAL: "The villagers are not homeless."
 
-          __G__.
+          VillagersHomeless.
 
 end_of_list.

@@ -57,19 +57,19 @@ formulas(assumptions).
 
 %% A1: "If Alan did not lock the door he either forgot or lost the key."
 
-        __A1__.
+        - AlanLockDoor -> (AlanForgotKey | AlanLostKey).
 
 %% A2: "If he lost the key he will be in trouble."
 
-        __A2__.
+        AlanLostKey -> AlanInTrouble.
 
 %% A3: "If he has a good memory he did not forget."
 
-        __A3__.
+        AlanGoodMemory -> -AlanForgotKey.
 
 %% A4: "Alan has a good memory."
 
-        __A4__.
+        AlanGoodMemory.
 
 
 end_of_list.
@@ -78,6 +78,6 @@ formulas(goals).
 
 %% GOAL: "Either Alan locked the door or he will be in trouble."
 
-          __G__.
+          (AlanLockDoor | AlanInTrouble).
 
 end_of_list.

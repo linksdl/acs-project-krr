@@ -57,15 +57,15 @@ formulas(assumptions).
 
 %% A1: "If Alba is not late to her appointment, the optician will be happy."
 
-        __A1__.
+        -AlbaLate -> OpticianHappy.
 
 %% A2: "Alba is early to her appointment."
 
-        __A2__.
+        AlbaEarly.
 
 %% A3: "If Alba is early then Alba is not late."
 
-        __A3__.
+        AlanEarly -> -AlanLate.
 
 
 end_of_list.
@@ -74,6 +74,6 @@ formulas(goals).
 
 %% GOAL: "The optician is happy."
 
-          __G__.
+          OpticianHappy.
 
 end_of_list.

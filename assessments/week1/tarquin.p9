@@ -57,23 +57,23 @@ formulas(assumptions).
 
 %% A1: "If Tarquin learns philosophy then he acquires wisdom and if he learns science he will advance human knowledge."
 
-        __A1__.
+        (TarquinLearnsPhilosophy -> TarquinAcquiresWisdom) & (TarquinLearnsScience -> TarquinAdvancesKnowledge).
 
 %% A2: "If he acquires wisdom, Tarquin will not die in misery."
 
-        __A2__.
+        TarquinAcquiresWisdom -> - TarquinDiesMisery.
 
 %% A3: "If he advances human knowledge, his aspirations will be satisfied."
 
-        __A3__.
+        TarquinAdvancesKnowledge -> TarquinSatisfiesAspirations.
 
 %% A4: "If Tarquin's aspirations are not satisfied he will die in misery."
 
-        __A4__.
+        - TarquinSatisfiesAspirations -> TarquinDiesMisery.
 
 %% A5: "Alas, Tarquin's aspirations will never be satisfied"
 
-        __A5__.
+        - TarquinSatisfiesAspirations.
 
 
 end_of_list.
@@ -82,6 +82,6 @@ formulas(goals).
 
 %% GOAL: "Thus, he learns neither philosophy nor science"
 
-          __G__.
+          -(TarquinLearnsPhilosophy | TarquinLearnsScience).
 
 end_of_list.

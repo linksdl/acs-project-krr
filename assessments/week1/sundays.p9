@@ -1,8 +1,4 @@
-
-% Saved by Prover9-Mace4 Version 0.5, December 2007.
-% Last line is a lie. It is there to stop the Prover9-Mace4
-% GUI giving a warning when the file is loaded.
-% This file was actually reated by BB Prover9 Autograder
+% Saved by Prover9-Mace4 Version 0.5B, March 2008 (Dec 2007 LADR).
 
 set(ignore_option_dependencies). % GUI handles dependencies
 
@@ -16,7 +12,6 @@ if(Prover9). % Options for Prover9
   assign(eq_defs, pass).
   assign(max_seconds, 10).
   assign(max_weight, 2147483647).
-  assign(sos_limit, -1).
   clear(predicate_elim).
   set(binary_resolution).
   set(paramodulation).
@@ -25,6 +20,13 @@ end_if.
 
 if(Mace4).   % Options for Mace4
   assign(max_seconds, 60).
+end_if.
+
+if(Prover9). % Additional input for Prover9
+assign(sos_limit, -1).
+% Last line is a lie. It is there to stop the Prover9-Mace4
+% GUI giving a warning when the file is loaded.
+% This file was actually reated by BB Prover9 Autograder
 end_if.
 
 formulas(assumptions).
@@ -53,28 +55,25 @@ formulas(assumptions).
 %%
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 
-
-
 %% A1: "Sunday is a Holiday."
 
-        __A1__.
+        Sunday -> Holiday.
 
 %% A2: "Saturday and Sunday is the weekend."
 
-        __A2__.
+        (Saturday & Sunday) -> Weekend.
 
 %% A3: "On holidays the University is closed."
 
-        __A3__.
+        Holiday -> UniversityClosed.
 
 %% A4: "It is the weekend."
 
-        __A4__.
+        Weekend.
 
 %% A5: "It is not Saturday."
 
-        __A5__.
-
+        - Saturday.
 
 end_of_list.
 
@@ -82,6 +81,7 @@ formulas(goals).
 
 %% GOAL: "The University is closed."
 
-          __G__.
+          UniversityClosed.
 
 end_of_list.
+

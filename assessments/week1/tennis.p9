@@ -30,9 +30,7 @@ end_if.
 formulas(assumptions).
 
 %% The Tennis Lover
-%% Stolen from an anonymous worksheet, posted on the web at 
-                                University of California Irvine, which says that it
-                                comes from an advert for a tennis magazine.
+%% Stolen from an anonymous worksheet, posted on the web at University of California Irvine, which says that it comes from an advert for a tennis magazine.
 %%
 %% Prover9 file: tennis.p9
 
@@ -59,15 +57,15 @@ formulas(assumptions).
 
 %% A1: "If I'm not playing tennis, I'm watching tennis."
 
-        __A1__.
+        - Playing -> Watching.
 
 %% A2: "If I'm not watching tennis, I'm reading about tennis."
 
-        __A2__.
+        - Watching -> Reading.
 
 %% A3: "I cannot do more than one tennis-related activity at the same time. *"
 
-        __A3__.
+        - Playing.
 
 
 end_of_list.
@@ -76,6 +74,6 @@ formulas(goals).
 
 %% GOAL: "What am I doing? **"
 
-          __G__.
+         Watching.
 
 end_of_list.
