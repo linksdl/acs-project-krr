@@ -82,6 +82,6 @@ formulas(goals).
 
 %% GOAL: "Thus, he learns neither philosophy nor science"
 
-          -(TarquinLearnsPhilosophy | TarquinLearnsScience).
+        -(TarquinLearnsPhilosophy | TarquinLearnsScience).
 
 end_of_list.

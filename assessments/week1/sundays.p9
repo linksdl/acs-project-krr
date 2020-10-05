@@ -61,7 +61,7 @@ formulas(assumptions).
 
 %% A2: "Saturday and Sunday is the weekend."
 
-        (Saturday & Sunday) -> Weekend.
+        (Saturday | Sunday) <-> Weekend.
 
 %% A3: "On holidays the University is closed."
 
@@ -81,7 +81,7 @@ formulas(goals).
 
 %% GOAL: "The University is closed."
 
-          UniversityClosed.
+        UniversityClosed.
 
 end_of_list.
 
