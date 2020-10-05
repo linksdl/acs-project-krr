@@ -57,11 +57,11 @@ formulas(assumptions).
 
 %% A1: "All informative things are useful."
 
-        __A1__.
+        all x (Informative(x) -> Useful(x)).
 
 %% A2: "Some web sites are not useful."
 
-        __A2__.
+        exists x (Website(x) -> - Useful(x)).
 
 
 end_of_list.
@@ -70,6 +70,6 @@ formulas(goals).
 
 %% GOAL: "Some web sites are not informative."
 
-          __G__.
+          exists x (Website(x) -> -Informative(x)).
 
 end_of_list.
