@@ -58,11 +58,11 @@ formulas(assumptions).
 
 %% A1: "All Greeks are men."
 
-        all x (Greek(x) -> Men(x)).
+        all x (Greek(x) -> Man(x)).
 
 %% A2: "All men are mortal."
 
-        all x (Men(x) -> Mortal(x)).
+        all x (Man(x) -> Mortal(x)).
 
 
 end_of_list.

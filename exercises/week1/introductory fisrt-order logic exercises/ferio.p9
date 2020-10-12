@@ -57,11 +57,11 @@ formulas(assumptions).
 
 %% A1: "No homework is fun."
 
-        __A1__.
+        all x (Homework(x) -> - Fun(x)).
 
 %% A2: "Some reading is homework."
 
-        __A2__.
+        exists x (Reading(x) -> Homework(x)).
 
 
 end_of_list.
@@ -70,6 +70,6 @@ formulas(goals).
 
 %% GOAL: "Some reading is not fun."
 
-          __G__.
+         exists x (Reading(x) -> -Fun(x)).
 
 end_of_list.

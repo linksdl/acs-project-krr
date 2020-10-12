@@ -1,8 +1,4 @@
-
-% Saved by Prover9-Mace4 Version 0.5, December 2007.
-% Last line is a lie. It is there to stop the Prover9-Mace4
-% GUI giving a warning when the file is loaded.
-% This file was actually reated by BB Prover9 Autograder
+% Saved by Prover9-Mace4 Version 0.5B, March 2008 (Dec 2007 LADR).
 
 set(ignore_option_dependencies). % GUI handles dependencies
 
@@ -16,7 +12,6 @@ if(Prover9). % Options for Prover9
   assign(eq_defs, pass).
   assign(max_seconds, 10).
   assign(max_weight, 2147483647).
-  assign(sos_limit, -1).
   clear(predicate_elim).
   set(binary_resolution).
   set(paramodulation).
@@ -27,12 +22,19 @@ if(Mace4).   % Options for Mace4
   assign(max_seconds, 60).
 end_if.
 
+if(Prover9). % Additional input for Prover9
+assign(sos_limit, -1).
+% Last line is a lie. It is there to stop the Prover9-Mace4
+% GUI giving a warning when the file is loaded.
+% This file was actually reated by BB Prover9 Autograder
+end_if.
+
 formulas(assumptions).
 
-%% Furry Reptiles
+%% The Stolen Diamond
 %% A logic problem by Brandon Bennett
 %%
-%% Prover9 file: celarent.p9
+%% Prover9 file: diamond.p9
 
 %% To solve this first-order logic proof problem, you must replace
 %% each of the assumption place-holders __An__ and the goal place-holder
@@ -49,27 +51,33 @@ formulas(assumptions).
 %% Brackets and separators:   ( )  [  ]  ,  .
 %% Variables:                 Whatever you like, but must be quantified.
 %%
-%% Predicates: Reptile, HasFur, Snake
+%% Propositional Constants: DiamondStolen, ThiefInHouse, DoorOpen, WindowSmashed
 %%
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 
+%% A1: "The diamond has been stolen!"
 
+        DiamondStolen.
 
-%% A1: "No reptiles have fur."
+%% A2: "If the diamond has been stolen, a thief got into the house."
 
-        all x (Reptile(x) -> -HasFur(x)).
+        DiamondStolen -> ThiefInHouse.
 
-%% A2: "All snakes are reptiles."
+%% A3: "If a thief got in, either the door was open or the window was smashed."
 
-        all x (Snake(x) -> Reptile(x)).
+        ThiefInHouse -> (DoorOpen | WindowSmashed).
 
+%% A4: "The window is not smashed."
+
+        - WindowSmashed.
 
 end_of_list.
 
 formulas(goals).
 
-%% GOAL: "No snakes have fur."
+%% GOAL: "The door was open."
 
-          all x( Snake(x) -> -HasFur(x)).
+          DoorOpen.
 
 end_of_list.
+

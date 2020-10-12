@@ -57,15 +57,15 @@ formulas(assumptions).
 
 %% A1: "Young rabbits are greedy"
 
-        __A1__.
+        all x ((Young(x) & Rabbit(x)) -> Greedy(x)).
 
 %% A2: "Greedy animals are fat."
 
-        __A2__.
+        all x ((Greedy(x) & Animal(x)) -> Fat(x)).
 
 %% A3: "Rabbits are animals."
 
-        __A3__.
+        all x (Rabbit(x) -> Animal(x)).
 
 
 end_of_list.
@@ -74,6 +74,6 @@ formulas(goals).
 
 %% GOAL: "All young rabbits are fat."
 
-          __G__.
+        all x ((Young(x) & Rabbit(x)) ->Fat(x)).
 
 end_of_list.
