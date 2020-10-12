@@ -57,11 +57,11 @@ formulas(assumptions).
 
 %% A1: "Some rhombuses are equilateral."
 
-        __A1__.
+        exists x (Rhombus(x) -> Equilateral(x)).
 
 %% A2: "Some equilaterals are triangular."
 
-        __A2__.
+        exists x (Equilateral(x) -> Triangular(x)).
 
 
 end_of_list.
@@ -70,6 +70,6 @@ formulas(goals).
 
 %% GOAL: "Some rhombuses are triangular."
 
-          __G__.
+          exists x (Rhombus(x) -> Triangular(x)).
 
 end_of_list.
