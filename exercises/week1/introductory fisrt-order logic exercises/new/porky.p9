@@ -57,19 +57,19 @@ formulas(assumptions).
 
 %% A1: "Porky is a pig."
 
-        __A1__.
+        Pig(Porky).
 
 %% A2: "Pigs are animals."
 
-        __A2__.
+        all x (Pig(x) -> Animal(x)).
 
 %% A3: "All pigs are fat."
 
-        __A3__.
+        all x (Pig(x) -> Fat(x)).
 
 %% A4: "No fat animals run fast."
 
-        __A4__.
+        all x ((Fat(x) & Animal(x)) -> -Fast(x)).
 
 
 end_of_list.
@@ -78,6 +78,6 @@ formulas(goals).
 
 %% GOAL: "Porky does not run fast."
 
-          __G__.
+          -Fast(Porky).
 
 end_of_list.

@@ -57,15 +57,15 @@ formulas(assumptions).
 
 %% A1: "Socrates is Greek."
 
-        __A1__.
+        Greek(Socrates).
 
 %% A2: "All Greeks are men."
 
-        __A2__.
+        all x (Greek(x) -> Man(x)).
 
 %% A3: "All men are mortal."
 
-        __A3__.
+        all x (Man(x) -> Mortal(x)).
 
 
 end_of_list.
@@ -74,6 +74,6 @@ formulas(goals).
 
 %% GOAL: "Socrates is mortal."
 
-          __G__.
+          Mortal(Socrates).
 
 end_of_list.
