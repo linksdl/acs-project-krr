@@ -1,8 +1,4 @@
-
-% Saved by Prover9-Mace4 Version 0.5, December 2007.
-% Last line is a lie. It is there to stop the Prover9-Mace4
-% GUI giving a warning when the file is loaded.
-% This file was actually reated by BB Prover9 Autograder
+% Saved by Prover9-Mace4 Version 0.5B, March 2008 (Dec 2007 LADR).
 
 set(ignore_option_dependencies). % GUI handles dependencies
 
@@ -16,7 +12,6 @@ if(Prover9). % Options for Prover9
   assign(eq_defs, pass).
   assign(max_seconds, 10).
   assign(max_weight, 2147483647).
-  assign(sos_limit, -1).
   clear(predicate_elim).
   set(binary_resolution).
   set(paramodulation).
@@ -25,6 +20,13 @@ end_if.
 
 if(Mace4).   % Options for Mace4
   assign(max_seconds, 60).
+end_if.
+
+if(Prover9). % Additional input for Prover9
+assign(sos_limit, -1).
+% Last line is a lie. It is there to stop the Prover9-Mace4
+% GUI giving a warning when the file is loaded.
+% This file was actually reated by BB Prover9 Autograder
 end_if.
 
 formulas(assumptions).
@@ -53,40 +55,37 @@ formulas(assumptions).
 %%
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 
-
-
 %% A1: "To get to work I either go by foot or by cycling or by bus."
 
-        __A1__.
+        GoToWork -> Foot | Cycle | Bus.
 
 %% A2: "If it rains when I'm outside without my hat,  my hair gets wet."
 
-        __A2__.
+        Raining & Outside & -Hat -> HairWet.
 
 %% A3: "If I'm wearing my hat or have wet hair, I can't hear well."
 
-        __A3__.
+        Hat | HairWet -> -HearWell.
 
 %% A4: "If I'm outside when it is raining and I can't hear well, I get splashed by cars."
 
-        __A4__.
+        Outside & Raining & -HearWell -> SplashedByCars.
 
 %% A5: "When I go to work on foot or on my bike I am outside."
 
-        __A5__.
+        GoToWork & (Foot | Cycle) -> Outside.
 
 %% A6: "It always rains when it is cloudy and I don't cycle when it rains."
 
-        __A6__.
+        (Cloudy -> Raining) & (Raining -> -Cycle).
 
 %% A7: "I always wear my hat when I cycle, but not any other time."
 
-        __A7__.
+        (Cycle -> Hat) & (-Cycle -> -Hat).
 
 %% A8: "When going to work, I make sure I never get splashed by cars."
 
-        __A8__.
-
+        GoToWork -> -SplashedByCars.
 
 end_of_list.
 
@@ -94,6 +93,7 @@ formulas(goals).
 
 %% GOAL: "If it is cloudy when I am going to work, I go by bus."
 
-          __G__.
+          GoToWork & Cloudy -> Bus.
 
 end_of_list.
+
