@@ -58,6 +58,7 @@ formulas(assumptions).
 %% A1: "No homework is fun."
 
         all x (Homework(x) & -Fun(x)).
+%%      all x (Homework(x) -> -Fun(x)).
 
 %% A2: "Some reading is homework."
 
