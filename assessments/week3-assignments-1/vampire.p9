@@ -49,7 +49,7 @@ formulas(assumptions).
 %% Brackets and separators:   ( )  [  ]  ,  .
 %% Variables:                 Whatever you like, but must be quantified.
 %%
-%% Constants: sir_Hugh, lady_Anne, dr_Burley, master_Bram, blue, purple, black%% Predicates: LivesInAbbeyHouse, Aristocrat, Logician, Shy, Vampire%% Relations: IsClevererThan, WasWearingColour, SawInMirror
+%% Constants: sir_Hugh, lady_Anne, dr_Burley, master_Bram, blue, purple, black%% Predicates: LivesInAbbeyHouse, Aristocrat, Logician, Shy, Vain, Vampire%% Relations: Loves, IsClevererThan, WasWearingColour, SawInMirror
 %%
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 

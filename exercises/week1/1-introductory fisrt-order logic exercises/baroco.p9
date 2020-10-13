@@ -61,7 +61,7 @@ formulas(assumptions).
 
 %% A2: "Some web sites are not useful."
 
-       exists x (Website(x) -> - Useful(x)).
+       exists x (Website(x) & - Useful(x)).
 %%        all x (Website(x) -> - Useful(x)).
 
 end_of_list.
@@ -70,7 +70,7 @@ formulas(goals).
 
 %% GOAL: "Some web sites are not informative."
 
-          exists x (Website(x) -> -Informative(x)).
+          exists x (Website(x) & -Informative(x)).
 %%        all x (Website(x) -> -Informative(x)).
 
 end_of_list.

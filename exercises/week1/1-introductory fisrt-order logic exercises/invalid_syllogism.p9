@@ -57,13 +57,13 @@ formulas(assumptions).
 
 %% A1: "Some rhombuses are equilateral."
 
-%%        exists x (Rhombus(x) -> Equilateral(x)).
-        all x (Rhombus(x) -> Equilateral(x)).
+        exists x (Rhombus(x) & Equilateral(x)).
+%%        all x (Rhombus(x)& Equilateral(x)).
 
 %% A2: "Some equilaterals are triangular."
 
-%%        exists x (Equilateral(x) -> Triangular(x)).
-        all x (Equilateral(x) -> Triangular(x)).
+        exists x (Equilateral(x) & Triangular(x)).
+%%        all x (Equilateral(x) -> Triangular(x)).
 
 end_of_list.
 
@@ -71,8 +71,8 @@ formulas(goals).
 
 %% GOAL: "Some rhombuses are triangular."
 
-%%          exists x (Rhombus(x) -> Triangular(x)).
-           all x (Rhombus(x) -> Triangular(x)).
+          exists x (Rhombus(x) & Triangular(x)).
+%%           all x (Rhombus(x) -> Triangular(x)).
 
 end_of_list.
 
