@@ -57,11 +57,11 @@ formulas(assumptions).
 
 %% A1: "If the dragon destroys the village, the villagers will be homeless unless they take the King's Castle."
 
-        (DragonDestroysVillage & -VillagersHomeless) <-> VillagesTakeCastle.
+        (DragonDestroysVillage & -VillagersHomeless) -> VillagersTakeCastle.
 
 %% A2: "If the King is mean then the villagers will take the castle."
 
-        KingMean -> VillagesTakeCastle.
+        KingMean -> VillagersTakeCastle.
 
 %% A3: "If the King is not mean then the dragon won't destroy the village."
 
