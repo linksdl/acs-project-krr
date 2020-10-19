@@ -72,6 +72,7 @@ formulas(assumptions).
 %% A4: "Sir Hugh loves nobody except himself."
 %% Notes
         all x (- Loves(sir_Hugh, x) & Loves(sir_Hugh, sir_Hugh)).
+%%        all x (Loves (x, x) <-> (x = sir_Hugh)).
 
 %% A5: "Lady Anne loves everyone who is cleverer than Sir Hugh"
 
@@ -117,7 +118,9 @@ formulas(assumptions).
 
 %% A15: "Aristocrats are always vain unless they are in love with someone who is not an Aristocrat."
 
-        all x all y (Aristocrat(x) & Loves(x, y) & Loves(y, x) & -Aristocrat(y) -> -Vain(x)).
+        all x all y ((Aristocrat(x) & -Vain(x)) -> (Loves(x, y) & Loves(y, x) & -Aristocrat(y)) )
+
+%%        all x all y (Aristocrat(x) & Loves(x, y) & Loves(y, x) & -Aristocrat(y) -> -Vain(x)).
 
 %% A16: "Those who are vain always look at themselves in mirrors."
 
@@ -144,7 +147,8 @@ end_of_list.
 formulas(goals).
 
 %% GOAL: "In Abbey House lives one and only one vampire, whose name is X ! **"
-       exists x (LivesInAbbeyHouse(x) & Vampire(master_Bram)).
+ %%      exists x (LivesInAbbeyHouse(x) & Vampire(master_Bram)).
+      exists x (LivesInAbbeyHouse(x) & Vampire(x) -> x = master_Bram).
 
 end_of_list.
 
