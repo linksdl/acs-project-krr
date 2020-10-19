@@ -57,7 +57,7 @@ formulas(assumptions).
 
 %% A1: "All crumpets have butter or honey on them."
 
-        __A1__.
+        all x (Honey(x) | Butter(x)).
 
 %% A2: "No crumpet has both honey and butter."
 
