@@ -67,7 +67,7 @@ formulas(assumptions).
 
 %% A3: "Aristocrats only wear blue or purple and never study logic."
 
-        all x (Aristocrat(x) & (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) ).
+        all x (Aristocrat(x) -> (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) ).
 
 %% A4: "Sir Hugh loves nobody except himself."
 %% Notes
@@ -88,7 +88,7 @@ formulas(assumptions).
 %% A7: "Logicians are always cleverer than those who do not study logic."
 %% Notes
 
-        all x (Logician(x) -> exists y( -Logician(y) & IsClevererThan(x, y))).
+        all x (Logician(x) -> exists y ( -Logician(y) & IsClevererThan(x, y))).
 
 %%      all x all y (Logician(x) & IsClevererThan(x, y) -> -Logician(y)).
 %%      all x all y (Logician(x) & - Logician(y) -> IsClevererThan(x, y)).
@@ -111,7 +111,7 @@ formulas(assumptions).
 
 %% A11: "Master Bram never wears any colour other than black."
 
-        exists x (WasWearingColour(master_Bram, x) -> (x = black)).
+        exists x (WasWearingColour(master_Bram, x) & (x = black)).
 
 %% A12: "Black is not the same as blue or purple."
 
@@ -156,7 +156,7 @@ formulas(assumptions).
 
 %% A20: "Nobody in Abbey House was naked. *"
 
-      all x (LivesInAbbeyHouse(x) -> WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black)).
+      all x (LivesInAbbeyHouse(x) -> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
 
 end_of_list.
 
@@ -164,7 +164,7 @@ formulas(goals).
 
 %% GOAL: "In Abbey House lives one and only one vampire, whose name is X ! **"
  %%      exists x (LivesInAbbeyHouse(x) & Vampire(master_Bram)).
-         exists x (LivesInAbbeyHouse(x) & Vampire(x) -> x = master_Bram).
+         exists x (LivesInAbbeyHouse(x) & Vampire(x) & (x = master_Bram)).
 
 end_of_list.
 
