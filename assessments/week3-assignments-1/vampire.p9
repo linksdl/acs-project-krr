@@ -72,8 +72,8 @@ formulas(assumptions).
 %% A4: "Sir Hugh loves nobody except himself."
 %% Notes
 %%         all x (-Loves(sir_Hugh, x) & -(sir_Hugh = x)).
-
-        all x (-Loves(sir_Hugh, x) -> x = sir_Hugh).
+          exists x exists y (Loves(x, x) & (x = sir_Hugh) & -Loves(x, y)).
+%%        all x (-Loves(sir_Hugh, x) -> x = sir_Hugh).
 %%        all x (Loves (x, x) <-> (x = sir_Hugh)).
 
 %% A5: "Lady Anne loves everyone who is cleverer than Sir Hugh"
