@@ -56,75 +56,100 @@ formulas(assumptions).
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 
 %% A1: "All crumpets have butter or honey on them."
-
+% 2
         all x (Honey(x) | Butter(x)).
 
 %% A2: "No crumpet has both honey and butter."
-
+% 2
        -(exists x ( Honey(x) & Butter(x))).
 
 %% A3: "There are exactly two honey crumpets."
 %% ===> 1
-       -(exists x exists y exists z (Honey(x) & Honey(y)  & Honey(z) & -(x = y) & -(y=z) & -(x=z))).
+% 1      -(exists x exists y exists z (Honey(x) & Honey(y)  & Honey(z) & -(x = y) & -(y=z) & -(x=z))).
+% 2
+       exists x exists y (Honey(x) & Honey(y) & -(x = y)) & -(exists x exists y exists z (Honey(x) & Honey(y)  & Honey(z) & -(x = y) & -(y=z) & -(x=z))).
 
 %% A4: "There are exactly two buttered crumpets."
 %% ===> 1
-       -(exists x exists y exists z (Butter(x) & Butter(y)  & Butter(z) & -(x = y) & -(y=z) & -(x=z))).
+% 2
+       exists x exists y (Butter(x) & Butter(y) & -(x = y)) & -(exists x exists y exists z (Butter(x) & Butter(y)  & Butter(z) & -(x = y) & -(y=z) & -(x=z))).
 
 %% A5: "Any two different crumpets are either next to each other or diagonally opposite."
+% 2
 
         all x all y( -(x = y) -> NextTo(x, y) | Diagonal(x, y)).
 
 %% A6: "No two crumpets are next to each other and diagonally opposite."
+% 2
 
         all x all y (-NextTo(x, y) | -Diagonal(x, y)).
 
 %% A7: "No crumpet is next to itself."
+% 2
 
         - (exists x (NextTo(x, x))).
 
 %% A8: "No crumpet is diagonally opposite itself"
+% 2
 
         - (exists x (Diagonal(x, x))).
 
 %% A9: "If any crumpet A is next to any crumpet B then B is also next to A."
+% 2
 
         all x all y(NextTo(x, y) <-> NextTo(y, x)).
 
 %% A10: "If any crumpet A is diagonally opposite any crumpet B then B is also diagonally opposite A."
+% 2
 
         all x all y(Diagonal(x, y) <-> Diagonal(y, x)).
 
 %% A11: "Every crumpet is diagonally opposite another crumpet."
 %% ===> 0
          % exists x exists y (Diagonal(x, y) & Diagonal(y, x)& -(x=y)).
-         all x all y (Diagonal(x, y) & Diagonal(y, x) -> -(x=y)).
+
+% 0         all x all y (Diagonal(x, y) & Diagonal(y, x) -> -(x=y)).
+% 0        all x all y (Diagonal(x, y) -> -(x=y)).
+% 0        exists x exists y (Diagonal(x, y) & -(x=y)).
+% 0        all x all y (Diagonal(x, y) -> -(x=y)).
+% 1
+          all x exists y (Diagonal(x, y) & -(x=y)).
 
 %% A12: "Every crumpet is next to two different crumpets."
 %% ===> 0
-        %exists x exists y exists z ( NextTo(x, y)& NextTo(x, y) & -(x=y) & -(x=z) & -(y=z) ).
-        all x all y all z ( NextTo(x, y)& NextTo(x, y) -> -(x=y) & -(x=z) & -(y=z) ).
+% 0        %exists x exists y exists z ( NextTo(x, y)& NextTo(x, y) & -(x=y) & -(x=z) & -(y=z) ).
+% 0        all x all y all z ( NextTo(x, y) & NextTo(x, z) -> -(x=y) & -(x=z) & -(y=z) ).
+% 0       exists x exists y exists z ( NextTo(x, y) & NextTo(x, z) & -(x=y) & -(x=z) & -(y=z)).
+% 0       all x  all y all z (NextTo(x, y) & NextTo(x, z) -> -(y=z)).
+% 2
+         all x  exists y exists z (NextTo(x, y) & NextTo(x, z) & -(y=z)).
 
 %% A13: "There are two honey crumpets which are next to each other."
 %% ===> 1
         %-(exists x exists y exists z (Honey(x) & Honey(y) & Honey(z) & NextTo(x, y) & NextTo(y,z) & NextTo(z,x) & -(x=y) & -(y=z) & -(z=x))).
-        exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & -(x=y)).
+% 1        exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & -(x=y)).
+% 1       exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & -(x=y)).
+% 1
+         exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & NextTo(y,x) & -(x=y)).
 
 %% A14: "If a crumpet A is diagonally opposite another crumpet B, and B is diagonally opposite another crumpet C, then A is C."
-
+% 2
         all x all y all z( Diagonal(x, y) & Diagonal(y,z) -> (x = z)).
 
 %% A15: "I ate two diagonally opposite crumpets."
-%% ===> 0
-% 0     -(exists x exists y exists z (Ate(x) & Ate(y) & Ate(z) & Diagonal(x, y) & Diagonal(y,z) & Diagonal(z, x) & -(x=y) & -(y=z) & -(z=x ) )) .
-% 1     exists x exists y (Ate(x) & Ate(y) & Diagonal(x, y) & Diagonal(y,x) & -(x=y)).
+%% ===> 1
+%1      -(exists x exists y exists z (Ate(x) & Ate(y) & Ate(z) & Diagonal(x, y) & Diagonal(y,z) & Diagonal(z, x) & -(x=y) & -(y=z) & -(z=x ))) .
+
+% 1     exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y) & Diagonal(y, z) & -(x=y) ) & -(exists x exists y exists z (Ate(x) & Ate(y) & Ate(z) & Diagonal(x, y) & Diagonal(y,z) & Diagonal(z, x) & -(x=y) & -(y=z) & -(z=x ))) .
+% 1        exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y) & -(x=y)).
+        exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y) & Diagonal(y, x) & -(x=y)).
 
 end_of_list.
 
 formulas(goals).
 
 %% GOAL: "I ate a honey crumpet."
-
+% 2
        exists x (Ate(x) & Honey(x)).
 
 end_of_list.

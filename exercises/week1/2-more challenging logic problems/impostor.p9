@@ -59,55 +59,75 @@ formulas(assumptions).
 
 %% A1: "Blue,Red,Yellow, Purple and a Janitor are crewmembers on a ship and are the only crewmembers."
 % ===> 1
-        Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor).
+% 1      Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor)
+%       Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor).
+% 0        all x (Crewmember(x) -> Blue=x | Red=x | Yellow=x | Purple=x | Janitor).
+% 1     Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor). % & -exists x (Crewmember(x) & -(x=Blue | x=Red | x=Yellow | x=Purple | x= Janitor)).
+% 1     exists x (Crewmember(x) & (x=Blue | x=Red | x=Yellow | x=Purple | x= Janitor)).
+%        exists x, exists y, exists z, exists m, exists n (Crewmember(x) & Crewmember(y) & Crewmember(z) & Crewmember(m) & Crewmember(n) & x=Blue & y=Red & z=Yellow & x=Purple  & x= Janitor ).
+     Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor).
 
 %% A2: "There are two crewmembers who are impostors."
-
+% 2
         exists x exists y (Crewmember(x) & Crewmember(y) & -(x=y) & Impostor(x) & Impostor(y)).
 
 %% A3: "There are no more than two impostors."
-
+% 2
         -(exists x exists y exists z ( Impostor(x) & Impostor(y) & Impostor(z) & -(x=y) & -(y=z) & -(x=z) ) ).
 
 %% A4: "If somebody accuses someone then the accused is an impostor or the accuser is the impostor."
-
+% 2
         all x all y (Accused(x, y) -> Impostor(x) | Impostor(y)).
 
 %% A5: "If somebody is known to be an impostor, then they are an impostor."
 % ===> 1
-        all x all y (KnowsImpostor(x, y) -> Impostor(x) & Impostor(y)).
+%        all x all y (KnowsImpostor(x, y) -> Impostor(x) & Impostor(y)).
+% 0        exists x exists y (KnowsImpostor(x, y) & Impostor(x) & Impostor(y) & -(x=y)).
+% 2
+         all x all y (KnowsImpostor(x, y) -> Impostor(y)).
 
 %% A6: "Impostors know they are impostors."
-
+% 2
         all x (Impostor(x) -> KnowsImpostor(x, x)).
 
 %% A7: "If someone is murdered then they are not an impostor."
-
+% 2
         all x (Murdered(x) -> -Impostor(x) ).
 
 %% A8: "Purple knows one of the impostors."
 % ===> 0
-        Crewmember(Purple) -> exists x (Impostor(x)).
+%        Crewmember(Purple) -> exists x (Impostor(x)).
+% 0         Purple  -> exists x (Impostor(x)).
+% 0     Crewmember(Purple) & exists x (Impostor(x)).
+% 0
+% 1         all x (KnowsImpostor(Purple,x)).
+          exists x (KnowsImpostor(Purple,x)) & -(exists y (KnowsImpostor(Purple, y) & -(x=y))).
 
 %% A9: "Purple doesn't know that the Janitor or Blue are an impostor."
 % ===> 0
-        Crewmember(Purple) -> (Crewmember(Janitor) & Impostor(Janitor)) | (Crewmember(Blue) & Impostor(Blue)).
+% 0        Crewmember(Purple) -> (Crewmember(Janitor) & Impostor(Janitor)) | (Crewmember(Blue) & Impostor(Blue)).
+% 0         Purple -> Impostor(Janitor) | Impostor(Blue). 
+% 1      -KnowsImpostor(Purple, Janitor) | -KnowsImpostor(Purple, Blue).
+
+        -KnowsImpostor(Purple, Janitor) & -KnowsImpostor(Purple, Blue).
 
 %% A10: "Purple was found murdered."
-
+% 2
         Murdered(Purple).
 
 %% A11: "Neither Red or Blue are the Janitor."
-
+% 2
         -(Red = Janitor) & -(Blue = Janitor).
 
 %% A12: "Blue accused Yellow."
-
+% 2
         Accused(Blue, Yellow).
 
 %% A13: "Nobody knows that Yellow is an impostor."
 % ===> 0
-        all x ( Crewmember(x) -> KnowsImpostor(x, Yellow)).
+% 0     all x ( Crewmember(x) -> KnowsImpostor(x, Yellow)).
+% 2
+        -(exists x (KnowsImpostor(x, Yellow))).
 
 end_of_list.
 
@@ -115,7 +135,9 @@ formulas(goals).
 
 %% GOAL: "Yellow, Purple and the Janitor are not impostors and Blue and Red are impostors."
 % ===> 0
-          -Impostor(Yellow) & -Impostor(Purple) & Impostor(Janitor) & Impostor(Blue) & Impostor(Red).
+% 0          -Impostor(Yellow) & -Impostor(Purple) & Impostor(Janitor) & Impostor(Blue) & Impostor(Red).
+% 2
+          -Impostor(Yellow) & -Impostor(Purple) & -Impostor(Janitor) & Impostor(Blue) & Impostor(Red).
 
 end_of_list.
 
