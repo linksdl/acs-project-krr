@@ -1,8 +1,4 @@
-
-% Saved by Prover9-Mace4 Version 0.5, December 2007.
-% Last line is a lie. It is there to stop the Prover9-Mace4
-% GUI giving a warning when the file is loaded.
-% This file was actually reated by BB Prover9 Autograder
+% Saved by Prover9-Mace4 Version 0.5B, March 2008 (Dec 2007 LADR).
 
 set(ignore_option_dependencies). % GUI handles dependencies
 
@@ -16,7 +12,6 @@ if(Prover9). % Options for Prover9
   assign(eq_defs, pass).
   assign(max_seconds, 10).
   assign(max_weight, 2147483647).
-  assign(sos_limit, -1).
   clear(predicate_elim).
   set(binary_resolution).
   set(paramodulation).
@@ -25,6 +20,13 @@ end_if.
 
 if(Mace4).   % Options for Mace4
   assign(max_seconds, 60).
+end_if.
+
+if(Prover9). % Additional input for Prover9
+assign(sos_limit, -1).
+% Last line is a lie. It is there to stop the Prover9-Mace4
+% GUI giving a warning when the file is loaded.
+% This file was actually reated by BB Prover9 Autograder
 end_if.
 
 formulas(assumptions).
@@ -53,8 +55,6 @@ formulas(assumptions).
 %%
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 
-
-
 %% A1: "All crumpets have butter or honey on them."
 
         all x (Honey(x) | Butter(x)).
@@ -64,12 +64,12 @@ formulas(assumptions).
        -(exists x ( Honey(x) & Butter(x))).
 
 %% A3: "There are exactly two honey crumpets."
-
-        exists x exists y (Honey(x) & Honey(y) & -(x = y)).
+%% ===> 1
+       -(exists x exists y exists z (Honey(x) & Honey(y)  & Honey(z) & -(x = y) & -(y=z) & -(x=z))).
 
 %% A4: "There are exactly two buttered crumpets."
-
-        exists x exists y (Butter(x) & Butter(y) & -(x = y))..
+%% ===> 1
+       -(exists x exists y exists z (Butter(x) & Butter(y)  & Butter(z) & -(x = y) & -(y=z) & -(x=z))).
 
 %% A5: "Any two different crumpets are either next to each other or diagonally opposite."
 
@@ -93,28 +93,31 @@ formulas(assumptions).
 
 %% A10: "If any crumpet A is diagonally opposite any crumpet B then B is also diagonally opposite A."
 
-        all x all y(Diagonal(x, y) <-> Diagonal(y, x))..
+        all x all y(Diagonal(x, y) <-> Diagonal(y, x)).
 
 %% A11: "Every crumpet is diagonally opposite another crumpet."
-
-        exists x exists y (Diagonal(x, y) & Diagonal(y, x)& -(x=y)).
+%% ===> 0
+         % exists x exists y (Diagonal(x, y) & Diagonal(y, x)& -(x=y)).
+         all x all y (Diagonal(x, y) & Diagonal(y, x) -> -(x=y)).
 
 %% A12: "Every crumpet is next to two different crumpets."
-
-        exists x exists y exists z ( NextTo(x, y)& NextTo(x, y) & -(x=y) & -(x=z) & -(y=z) ).
+%% ===> 0
+        %exists x exists y exists z ( NextTo(x, y)& NextTo(x, y) & -(x=y) & -(x=z) & -(y=z) ).
+        all x all y all z ( NextTo(x, y)& NextTo(x, y) -> -(x=y) & -(x=z) & -(y=z) ).
 
 %% A13: "There are two honey crumpets which are next to each other."
-
-        exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & NextTo(y,x) & -(x=y)).
+%% ===> 1
+        %-(exists x exists y exists z (Honey(x) & Honey(y) & Honey(z) & NextTo(x, y) & NextTo(y,z) & NextTo(z,x) & -(x=y) & -(y=z) & -(z=x))).
+        exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & -(x=y)).
 
 %% A14: "If a crumpet A is diagonally opposite another crumpet B, and B is diagonally opposite another crumpet C, then A is C."
 
         all x all y all z( Diagonal(x, y) & Diagonal(y,z) -> (x = z)).
 
 %% A15: "I ate two diagonally opposite crumpets."
-
-        exists x exists y (Ate(x) & Ate(y) & Diagonal(x, y) & Diagonal(y,x) & -(x=y)) .
-
+%% ===> 0
+% 0     -(exists x exists y exists z (Ate(x) & Ate(y) & Ate(z) & Diagonal(x, y) & Diagonal(y,z) & Diagonal(z, x) & -(x=y) & -(y=z) & -(z=x ) )) .
+% 1     exists x exists y (Ate(x) & Ate(y) & Diagonal(x, y) & Diagonal(y,x) & -(x=y)).
 
 end_of_list.
 
@@ -125,3 +128,4 @@ formulas(goals).
        exists x (Ate(x) & Honey(x)).
 
 end_of_list.
+

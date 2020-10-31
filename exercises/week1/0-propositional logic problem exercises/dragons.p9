@@ -56,7 +56,7 @@ formulas(assumptions).
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 
 %% A1: "If the dragon destroys the village, the villagers will be homeless unless they take the King's Castle."
-
+%% ===> 1
 %%        (DragonDestroysVillage & -VillagersHomeless) -> VillagersTakeCastle.
 %%        DragonDestroysVillage & -VillagersHomeless -> VillagersTakeCastle.
         DragonDestroysVillage & VillagersTakeCastle -> -VillagersHomeless.
