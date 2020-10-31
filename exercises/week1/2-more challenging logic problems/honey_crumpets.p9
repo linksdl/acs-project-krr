@@ -61,59 +61,59 @@ formulas(assumptions).
 
 %% A2: "No crumpet has both honey and butter."
 
-        __A2__.
+       -(exists x ( Honey(x) & Butter(x))).
 
 %% A3: "There are exactly two honey crumpets."
 
-        __A3__.
+        exists x exists y (Honey(x) & Honey(y) & -(x = y)).
 
 %% A4: "There are exactly two buttered crumpets."
 
-        __A4__.
+        exists x exists y (Butter(x) & Butter(y) & -(x = y))..
 
 %% A5: "Any two different crumpets are either next to each other or diagonally opposite."
 
-        __A5__.
+        all x all y( -(x = y) -> NextTo(x, y) | Diagonal(x, y)).
 
 %% A6: "No two crumpets are next to each other and diagonally opposite."
 
-        __A6__.
+        all x all y (-NextTo(x, y) | -Diagonal(x, y)).
 
 %% A7: "No crumpet is next to itself."
 
-        __A7__.
+        - (exists x (NextTo(x, x))).
 
 %% A8: "No crumpet is diagonally opposite itself"
 
-        __A8__.
+        - (exists x (Diagonal(x, x))).
 
 %% A9: "If any crumpet A is next to any crumpet B then B is also next to A."
 
-        __A9__.
+        all x all y(NextTo(x, y) <-> NextTo(y, x)).
 
 %% A10: "If any crumpet A is diagonally opposite any crumpet B then B is also diagonally opposite A."
 
-        __A10__.
+        all x all y(Diagonal(x, y) <-> Diagonal(y, x))..
 
 %% A11: "Every crumpet is diagonally opposite another crumpet."
 
-        __A11__.
+        exists x exists y (Diagonal(x, y) & Diagonal(y, x)& -(x=y)).
 
 %% A12: "Every crumpet is next to two different crumpets."
 
-        __A12__.
+        exists x exists y exists z ( NextTo(x, y)& NextTo(x, y) & -(x=y) & -(x=z) & -(y=z) ).
 
 %% A13: "There are two honey crumpets which are next to each other."
 
-        __A13__.
+        exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & NextTo(y,x) & -(x=y)).
 
 %% A14: "If a crumpet A is diagonally opposite another crumpet B, and B is diagonally opposite another crumpet C, then A is C."
 
-        __A14__.
+        all x all y all z( Diagonal(x, y) & Diagonal(y,z) -> (x = z)).
 
 %% A15: "I ate two diagonally opposite crumpets."
 
-        __A15__.
+        exists x exists y (Ate(x) & Ate(y) & Diagonal(x, y) & Diagonal(y,x) & -(x=y)) .
 
 
 end_of_list.
@@ -122,6 +122,6 @@ formulas(goals).
 
 %% GOAL: "I ate a honey crumpet."
 
-          __G__.
+       exists x (Ate(x) & Honey(x)).
 
 end_of_list.
