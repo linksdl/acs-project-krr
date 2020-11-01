@@ -113,7 +113,8 @@ formulas(assumptions).
 % 0        exists x exists y (Diagonal(x, y) & -(x=y)).
 % 0        all x all y (Diagonal(x, y) -> -(x=y)).
 % 1
-          all x exists y (Diagonal(x, y) & -(x=y)).
+%          all x exists y (Diagonal(x, y) & -(x=y)).
+          all x exists y (Diagonal(x, y)).
 
 %% A12: "Every crumpet is next to two different crumpets."
 %% ===> 0
