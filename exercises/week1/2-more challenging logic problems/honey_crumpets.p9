@@ -130,8 +130,8 @@ formulas(assumptions).
         %-(exists x exists y exists z (Honey(x) & Honey(y) & Honey(z) & NextTo(x, y) & NextTo(y,z) & NextTo(z,x) & -(x=y) & -(y=z) & -(z=x))).
 % 1        exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & -(x=y)).
 % 1       exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & -(x=y)).
-% 1
-         exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & NextTo(y,x) & -(x=y)).
+% 1       exists x exists y (Honey(x) & Honey(y) & NextTo(x, y) & NextTo(y,x) & -(x=y)).
+         exists x exists y (Honey(x) & Honey(y) & NextTo(x, y)).
 
 %% A14: "If a crumpet A is diagonally opposite another crumpet B, and B is diagonally opposite another crumpet C, then A is C."
 % 2
@@ -143,7 +143,8 @@ formulas(assumptions).
 
 % 1     exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y) & Diagonal(y, z) & -(x=y) ) & -(exists x exists y exists z (Ate(x) & Ate(y) & Ate(z) & Diagonal(x, y) & Diagonal(y,z) & Diagonal(z, x) & -(x=y) & -(y=z) & -(z=x ))) .
 % 1        exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y) & -(x=y)).
-        exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y) & Diagonal(y, x) & -(x=y)).
+% 1        exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y) & Diagonal(y, x) & -(x=y)).
+        exists x exists y (Ate(x) & Ate(y)  & Diagonal(x, y)).
 
 end_of_list.
 
