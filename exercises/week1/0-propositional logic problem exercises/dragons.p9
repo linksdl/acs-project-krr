@@ -59,8 +59,8 @@ formulas(assumptions).
 %% ===> 1
 %%        (DragonDestroysVillage & -VillagersHomeless) -> VillagersTakeCastle.
 %%        DragonDestroysVillage & -VillagersHomeless -> VillagersTakeCastle.
-        DragonDestroysVillage & VillagersTakeCastle -> -VillagersHomeless.
-
+%%         (DragonDestroysVillage -> VillagersHomeless) & (DragonDestroysVillage & VillagersTakeCastle -> -VillagersHomeless).
+          DragonDestroysVillage -> (-VillagersHomeless <-> VillagersTakeCastle).
 
 %% A2: "If the King is mean then the villagers will take the castle."
 
