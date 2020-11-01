@@ -61,11 +61,12 @@ formulas(assumptions).
 % ===> 1
 % 1      Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor)
 %       Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor).
-% 0        all x (Crewmember(x) -> Blue=x | Red=x | Yellow=x | Purple=x | Janitor).
+% 0     all x (Crewmember(x) -> Blue=x | Red=x | Yellow=x | Purple=x | Janitor).
 % 1     Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor). % & -exists x (Crewmember(x) & -(x=Blue | x=Red | x=Yellow | x=Purple | x= Janitor)).
 % 1     exists x (Crewmember(x) & (x=Blue | x=Red | x=Yellow | x=Purple | x= Janitor)).
 %        exists x, exists y, exists z, exists m, exists n (Crewmember(x) & Crewmember(y) & Crewmember(z) & Crewmember(m) & Crewmember(n) & x=Blue & y=Red & z=Yellow & x=Purple  & x= Janitor ).
-     Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor).
+%     Crewmember(Blue) & Crewmember(Red) & Crewmember(Yellow) & Crewmember(Purple) & Crewmember(Janitor).
+       all x (Crewmember(x) <-> Blue=x | Red=x | Yellow=x | Purple=x | Janitor=x).
 
 %% A2: "There are two crewmembers who are impostors."
 % 2
@@ -101,7 +102,8 @@ formulas(assumptions).
 % 0     Crewmember(Purple) & exists x (Impostor(x)).
 % 0
 % 1         all x (KnowsImpostor(Purple,x)).
-          exists x (KnowsImpostor(Purple,x)) & -(exists y (KnowsImpostor(Purple, y) & -(x=y))).
+%          exists x (KnowsImpostor(Purple,x)) & -(exists y (KnowsImpostor(Purple, y) & -(x=y))).
+        exists x (KnowsImpostor(Purple,x)).
 
 %% A9: "Purple doesn't know that the Janitor or Blue are an impostor."
 % ===> 0

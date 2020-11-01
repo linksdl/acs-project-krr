@@ -57,7 +57,7 @@ formulas(assumptions).
 
 %% A1: "To get to work I either go by foot or by cycling or by bus."
 
-        GoToWork -> (Foot | Cycle | Bus).
+        GoToWork -> Foot | Cycle | Bus.
 
 %% A2: "If it rains when I'm outside without my hat,  my hair gets wet."
 
@@ -72,21 +72,19 @@ formulas(assumptions).
         Outside & Raining & -HearWell -> SplashedByCars.
 
 %% A5: "When I go to work on foot or on my bike I am outside."
-% GoToWork -> (Foot | Cycle) & Outside.     
 
         GoToWork & (Foot | Cycle) -> Outside.
 
 %% A6: "It always rains when it is cloudy and I don't cycle when it rains."
 
-        (Cloudy <-> Raining) & (Raining -> -Cycle).
+        (Cloudy -> Raining) & (Raining -> -Cycle).
 
 %% A7: "I always wear my hat when I cycle, but not any other time."
 
-%        (Cycle <-> Hat) & (-Cycle -> -Hat).
-         (Cycle -> Hat) & (-Cycle -> -Hat).
+        (Cycle -> Hat) & (-Cycle -> -Hat).
 
 %% A8: "When going to work, I make sure I never get splashed by cars."
-%        GoToWork <-> -SplashedByCars.
+
         GoToWork -> -SplashedByCars.
 
 end_of_list.
