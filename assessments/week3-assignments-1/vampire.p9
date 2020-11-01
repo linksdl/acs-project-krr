@@ -58,7 +58,7 @@ formulas(assumptions).
 %% Use only the specified vocabulary, otherwise the autograder will not work.
 
 %% A1: "The only people who live in Abbey House are: Sir Hugh, Lady Anne,  Dr Burley and Master Bram."
-
+% 1
         LivesInAbbeyHouse(sir_Hugh) & LivesInAbbeyHouse(lady_Anne) & LivesInAbbeyHouse(dr_Burley) & LivesInAbbeyHouse(master_Bram).
 
 %% A2: "Sir Hugh and Lady Anne are aristocrats."
@@ -71,38 +71,41 @@ formulas(assumptions).
 
 %% A4: "Sir Hugh loves nobody except himself."
 %% Notes
-%%         all x (-Loves(sir_Hugh, x) & -(sir_Hugh = x)).
-          exists x exists y (Loves(x, x) & (x = sir_Hugh) & -Loves(x, y)).
+%%        all x (-Loves(sir_Hugh, x) & -(sir_Hugh = x)).        
 %%        all x (-Loves(sir_Hugh, x) -> x = sir_Hugh).
 %%        all x (Loves (x, x) <-> (x = sir_Hugh)).
+% exists x exists y (Loves(x, x) & (x = sir_Hugh) & -Loves(x, y)).
+        all x (-Loves(sir_Hugh, x) -> Loves(sir_Hugh, sir_Hugh)).
 
 %% A5: "Lady Anne loves everyone who is cleverer than Sir Hugh"
 
-        exists x (Loves(lady_Anne,x) & IsClevererThan(x, sir_Hugh)).
+%       exists x (Loves(lady_Anne,x) & IsClevererThan(x, sir_Hugh)).
+        all x (Loves(lady_Anne,x) -> IsClevererThan(x, sir_Hugh)).
 
 %% A6: "One of the inhabitants of Abbey House is a logician."
 %% Notes n = 1 or n >= 1
-
-        exists x (LivesInAbbeyHouse(x) & Logician(x)).
+% exists x (LivesInAbbeyHouse(x) & Logician(x))
+        exists x (LivesInAbbeyHouse(x) & Logician(x)) & -(exists y ( LivesInAbbeyHouse(y) & Logician(y) & -(x=y))).
 
 %% A7: "Logicians are always cleverer than those who do not study logic."
 %% Notes
-
-        all x (Logician(x) -> exists y ( -Logician(y) & IsClevererThan(x, y))).
-
 %%      all x all y (Logician(x) & IsClevererThan(x, y) -> -Logician(y)).
 %%      all x all y (Logician(x) & - Logician(y) -> IsClevererThan(x, y)).
 
+        % all x (Logician(x) -> exists y ( -Logician(y) & IsClevererThan(x, y))).
+        all x exists y (Logician(x) & IsClevererThan(x, y) -> -Logician(y)).
+
 %% A8: "Nobody in Abbey House is cleverer than Dr Burley."
 %% Notes
-        - (exists x (LivesInAbbeyHouse(x) & IsClevererThan(x, dr_Burley))).
-
 %%        all x (LivesInAbbeyHouse(x) & - IsClevererThan(x, dr_Burley)).
+
+        - (exists x (LivesInAbbeyHouse(x) & IsClevererThan(x, dr_Burley))).
 
 %% A9: "Logicians who are loved by aristocrats are always shy."
 
 %%        all x all y (Logicians(x) & Aristocrat(y) & Loves(y, x) -> Shy(x)).
-        exists x all y (Logicians(x) & Aristocrat(y) & Loves(y, x) -> Shy(x)).
+%       exists x all y (Logicians(x) & Aristocrat(y) & Loves(y, x) -> Shy(x)).
+         all x  all y (Logicians(x) & Loves(y, x) & Aristocrat(y) -> Shy(x)).
 
 %% A10: "Nobody loves a shy vampire."
 %% Notes
@@ -111,7 +114,8 @@ formulas(assumptions).
 
 %% A11: "Master Bram never wears any colour other than black."
 
-        exists x (WasWearingColour(master_Bram, x) & (x = black)).
+%%       exists x (WasWearingColour(master_Bram, x) & (x = black)).
+       all x (-WasWearingColour(master_Bram, x) -> x=black).
 
 %% A12: "Black is not the same as blue or purple."
 
@@ -138,8 +142,8 @@ formulas(assumptions).
 %% Notes
 
 %%        exists x (Vain(x) -> SawInMirror(x, x)).
-          exists x (Vain(x) & SawInMirror(x, x)).
-%%        all x (Vain(x) -> SawInMirror(x, x)).
+%         exists x (Vain(x) & SawInMirror(x, x)).
+        all x (Vain(x) -> SawInMirror(x, x)).
 
 %% A17: "Vampires cannot be seen in mirrors. And if something has no reflection it must be a vampire."
 

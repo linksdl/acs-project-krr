@@ -1,0 +1,68 @@
+%% A1
+all x (LivesInAbbeyHouse(x) <-> (x = sir_Hugh & x = lady_Anne & x = dr_Burley & x = master_Bram)).
+
+%% A2
+Aristocrat(sir_Hugh) & Aristocrat(lady_Anne).
+
+%% A3
+all x (Aristocrat(x) -> (WasWearingColour(x,blue) | WasWearingColour(x, purple)) & -Logician(x)).
+
+%% A4
+all x(Loves(sir_Hugh,x) ->(x = sir_Hugh)).
+
+%% A5
+all x (Loves(lady_Anne,x) -> IsCleverThan(x,sir_Hugh)).
+
+%% A6
+exists x(LivesInAbbeyHouse(x) & Logician(x)).
+
+%% A7
+all x all y(Logician(x) & -Logician(y) -> IsCleverThan(x,y)).
+
+%% A8
+all x(LivesInAbbeyHouse(x) -> -IsCleverThan(x,dr_Burley)).
+
+
+%% A9
+all x all y(Aristocrats(x) & Logician(y) & Loves(x,y) -> Shy(y)).
+
+
+%% A10
+-(exists x exists y(Loves(x,y) & Shy(y) & Vampire(y))).
+
+%% A11
+all x(WasWearingColour(master_Bram,x) -> (x = black)).
+
+%% A12
+-(Black = Blue) & -(Black = Purple).
+
+
+%% A13
+-(exists x exists y(WasWearingColour(dr_Burley, x) & WasWearingColour(master_Bram,y) & x = y)).
+
+
+%% A14
+-(exists x exists y (WasWearingColour(lady_Anne, x) & WasWearingColour(y,x) & LivesInAbbeyHouse(y))).
+
+%% A15
+all x all y(Aristocrates(x)  & -Aristocrates(y) & Loves(x,y) & Loves(y, x) -> -Vain(x)).
+
+%% A16
+all x(Vain(x) -> SawInMirror(x,x)).
+
+%% A17
+all x all y (Vampire(x) <-> -SawInMirror(y,x)).
+
+%% A18
+all x (WasWearingColour(x,black) & SawInMirror(dr_Burley,x) -> LivesInAbbeyHouse(x)).
+
+%% A19
+all z (SawInMirror(lady_Anne, z) -> exists x exists y (WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y))).
+
+%% A20
+all x (LivesInAbbeyHouse(x) -> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
+
+
+
+%% GOAL
+exists x (LivesInAbbeyHouse(x) & Vampire(x) & (x = master_Bram)).

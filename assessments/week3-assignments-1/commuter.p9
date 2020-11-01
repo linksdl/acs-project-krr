@@ -65,7 +65,7 @@ formulas(assumptions).
 
 %% A3: "If I'm wearing my hat or have wet hair, I can't hear well."
 
-        Hat | HairWet -> -HearWell.
+        (Hat | HairWet) -> -HearWell.
 
 %% A4: "If I'm outside when it is raining and I can't hear well, I get splashed by cars."
 
