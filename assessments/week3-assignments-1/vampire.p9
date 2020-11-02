@@ -175,9 +175,11 @@ formulas(assumptions).
 %% A20: "Nobody in Abbey House was naked. **"
 
 %% 1      all x (LivesInAbbeyHouse(x) <-> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
-%% 1          all x (LivesInAbbeyHouse(x) <-> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
-%% 0         -(exists x (LivesInAbbeyHouse(x) & (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black)) )).
-          all x (LivesInAbbeyHouse(x) -> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
+%% 1      all x (LivesInAbbeyHouse(x) <-> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
+%% 0      -(exists x (LivesInAbbeyHouse(x) & (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black)) )).
+%% 1      all x (LivesInAbbeyHouse(x) -> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
+%%          all x all y (LivesInAbbeyHouse(x) <-> WasWearingColour(x,y) & (y=blue | y=purple | y=black)).
+          all x all y (LivesInAbbeyHouse(x) -> WasWearingColour(x,y) & (y=blue | y=purple | y=black)).
 
 end_of_list.
 
