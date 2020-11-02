@@ -162,11 +162,15 @@ formulas(assumptions).
 %%          two different colours of clothing. *"
 
 %% 0       all z ( SawInMirror(lady_Anne, z) -> exists x exists y (WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y))).
-%% 0         all x (SawInMirror(lady_Anne, lady_Anne) -> exists y exists z (WasWearingColour(x,y) & WasWearingColour(x,z) & -(y=z)) & -(exists y exists z exists u (WasWearingColour(x,y) & WasWearingColour(x,z) & WasWearingColour(x,u) & -(y=z) & -(z=u) & -(u=y)) ) ).
-%% 0         SawInMirror(lady_Anne, lady_Anne) & all x (LivesInAbbeyHouse(x) -> exists y exists z (WasWearingColour(x,y) & WasWearingColour(x,z) & -(y=z))).
-%% 0         all x all y (SawInMirror(lady_Anne, x) & WasWearingColour(x,y) -> (y = blue | y = purple)  | (y = blue | y = black) | (y = black | y = purple)).
-%% 0         all x all y ( WasWearingColour(x,y) -> (y = blue | y = purple)  | (y = blue | y = black) | (y = black | y = purple)).
-%% 0         SawInMirror(lady_Anne, lady_Anne) & all x all y all z (SawInMirror(lady_Anne, z)& WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y)).
+%% 0       all x (SawInMirror(lady_Anne, lady_Anne) -> exists y exists z (WasWearingColour(x,y) & WasWearingColour(x,z) & -(y=z)) & -(exists y exists z exists u (WasWearingColour(x,y) & WasWearingColour(x,z) & WasWearingColour(x,u) & -(y=z) & -(z=u) & -(u=y)) ) ).
+%% 0       SawInMirror(lady_Anne, lady_Anne) & all x (LivesInAbbeyHouse(x) -> exists y exists z (WasWearingColour(x,y) & WasWearingColour(x,z) & -(y=z))).
+%% 0       all x all y (SawInMirror(lady_Anne, x) & WasWearingColour(x,y) -> (y = blue | y = purple)  | (y = blue | y = black) | (y = black | y = purple)).
+%% 0       all x all y ( WasWearingColour(x,y) -> (y = blue | y = purple)  | (y = blue | y = black) | (y = black | y = purple)).
+%% 0       SawInMirror(lady_Anne, lady_Anne) & all x all y all z (SawInMirror(lady_Anne, z)& WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y)).
+%% 0       all x (SawInMirror(lady_Anne, x) -> exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z))).
+%% 0       exists x exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z) & -(x=lady_Anne)).
+%%         exists x exists y (SawInMirror(lady_Anne, x) & WasWearingColour(x, y) & (y = blue | y = purple)  | (y = blue | y = black) | (y = black | y = purple)).
+           exists x exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z) & -(x=lady_Anne)) & -(exists x exists y exists z exists u (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z) & -(y=u) & -(z=u) & WasWearingColour(x,u) & -(x=lady_Anne)) ).
 
 %% A20: "Nobody in Abbey House was naked. **"
 
