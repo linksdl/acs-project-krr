@@ -67,13 +67,16 @@ formulas(assumptions).
         Aristocrat(sir_Hugh) & Aristocrat(lady_Anne).
 
 %% A3: "Aristocrats only wear blue or purple and never study logic."
+
 %%      all x (Aristocrat(x) <-> (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) ).
 %% 0
 %% 1   all x all y (Aristocrat(x) -> WasWearingColour(x, y) & (y= blue | y = purple) & -Logician(x) ).
 %% 1   all x all y (Aristocrat(x) <-> WasWearingColour(x, y) & (y= blue | y = purple) & -Logician(x) ).
 %% 0   all x ( (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) -> Aristocrat(x) ).
 %% 0   all x (Aristocrat(x) -> (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) ).
-      all x all y ( Aristocrat(x) -> WasWearingColour(x, y) & (y= blue | y = purple) & ( Aristocrat(x) -> -Logician(x) ) ).
+%% 0   all x all y (Aristocrat(x) & -Logician(x) -> WasWearingColour(x, y) & (y= blue | y = purple) ).
+%% 0   exists x exists y (Aristocrat(x) & -Logician(x) & WasWearingColour(x, y) & (y= blue | y = purple)).
+       all x all y (Aristocrat(x) -> WasWearingColour(x, y) & (y= blue | y = purple) & -Logician(x)).
 
 %% A4: "Sir Hugh loves nobody except himself."
 
