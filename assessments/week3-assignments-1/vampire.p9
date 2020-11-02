@@ -80,7 +80,13 @@ formulas(assumptions).
 %% 0   all x (Aristocrat(x) -> (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x)).
 %% 0   all x all y (Aristocrat(x) -> WasWearingColour(x, y) & (y= blue | y = purple) & -Logician(x) ).
 %% 1   all x all y (Aristocrat(x) & WasWearingColour(x, y) -> (y= blue | y = purple) & -Logician(x) ).
-       all x all y (Aristocrat(x) & WasWearingColour(x, y) & -Logician(x)  -> (y= blue | y = purple)).
+%% 1   all x all y (Aristocrat(x) & WasWearingColour(x, y) & -Logician(x)  -> (y= blue | y = purple)).
+%% 1   all x (Aristocrat(x) -> ( (WasWearingColour(x, blue)|WasWearingColour(x, purple)) -> -Logician(x) )).
+
+%% 0   all x ((Aristocrat(x) -> WasWearingColour(x, blue) | WasWearingColour(x, purple)) & (Aristocrat(x) -> -Logician(x)) ) .
+%% 0   all x ((Aristocrat(x) -> -Logician(x)) -> WasWearingColour(x, blue) | WasWearingColour(x, purple)).
+%% 1   all x (Aristocrat(x) -> ((WasWearingColour(x, blue) | WasWearingColour(x, purple)) | Aristocrat(x) -> -Logician(x) )).
+       all x all y (Aristocrat(x) -> (WasWearingColour(x, y) & (y= blue | y = purple)) | (Aristocrat(x) -> -Logician(x)) ).
 
 %% A4: "Sir Hugh loves nobody except himself."
 
@@ -135,14 +141,17 @@ formulas(assumptions).
 %%          all x( Aristocrat (x) -> all y (Loves(x,y) & -Aristocrat(y) -> -Vain(x))).
 %%          all x all y(Aristocrat(x)  & -Aristocrat(y) & Loves(x,y) & Loves(y, x) -> -Vain(x)).
 %% 1        all x all y(Aristocrat(x) -> (-Vain(x) <-> Loves(x, y) & -Aristocrat(y))).
-%% 1        all x all y(Aristocrat(x) <-> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).
+%% 1        all x all y(Aristocrat(x) <-> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))). 1
 %% 0        all x all y(Aristocrat(x) <-> (Loves(x, y) & -Aristocrat(y) -> -Vain(x))).
-%% 1        all x all y(Aristocrat(x) -> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).
+%% 1        all x all y(Aristocrat(x) -> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).  1
 %% 0        all x all y(Aristocrat(x) -> (-Vain(x) & -Aristocrat(y) -> Loves(x, y))).
-%% 0        all x all y (Aristocrat(x) & Loves(x, y) & -Aristocrat(y) -> -Vain(x)).
+%% 0        all x all y(Aristocrat(x) & Loves(x, y) & -Aristocrat(y) -> -Vain(x)).
 %% 0        all x all y(Aristocrat(x) -> ( Loves(x, y) & -Aristocrat(y) -> -Vain(x) )).
-%%          all x all y(Aristocrat(x) -> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).
-            all x all y(Aristocrat(x) & -Vain(x) & -Aristocrat(y) -> Loves(x, y)).
+%% 1        all x all y(Aristocrat(x) -> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).
+%% 0        all x all y(Aristocrat(x) & -Vain(x) & -Aristocrat(y) -> Loves(x, y)).
+%% 0        all x all y(Aristocrat(x) & -Aristocrat(y) -> (-Vain(x) -> Loves(x, y))).
+%% 1         all x (Aristocrat(x) <-> exists y (-Vain(x) & Loves(x, y) & -Aristocrat(y))).
+            all x (Aristocrat(x) & -Vain(x) <-> exists y (Loves(x, y) & -Aristocrat(y))).
 
 %% A16: "Those who are vain always look at themselves in mirrors."
 
@@ -154,7 +163,7 @@ formulas(assumptions).
           all x all y (Vampire(x) <-> -SawInMirror(y, x)).
 
 %% A18: "Dr Burley saw someone dressed in black in the mirror.
-%%          It must have been someone who lives in Abbey House"
+%%          It must have been som eone who lives in Abbey House"
 
        exists x (SawInMirror(dr_Burley, x) & WasWearingColour(x,black) & LivesInAbbeyHouse(x)).
 
@@ -170,7 +179,12 @@ formulas(assumptions).
 %% 0       all x (SawInMirror(lady_Anne, x) -> exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z))).
 %% 0       exists x exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z) & -(x=lady_Anne)).
 %% 0       exists x exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z)) & -(exists x exists y exists z exists u (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z) & -(y=u) & -(z=u) & WasWearingColour(x,u)) ).
-           exists x exists y exists z (SawInMirror(lady_Anne, x) & WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z) ).
+%%           all x (SawInMirror(lady_Anne, x) -> -(exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z)) )). 
+% & -(exists y exists z eixsts u (WasWearingColour(x, y) & WasWearingColour(x, z) & WasWearingColour(x,u) & -(y=z) & -(y=u) & -(z=u) )) 
+%% 0        all x (SawInMirror(lady_Anne, x) -> exists y exists z(WasWearingColour(x, y) & WasWearingColour(x,z) & -(y=z)) & -(exists y exists z exists u (WasWearingColour(x, y) & WasWearingColour(x, z) & WasWearingColour(x, u) & -(y=z)) & -(y=u) & -(z=u) )). 
+%% 0        exists x exists y exists z (WasWearingColour(x, y) & WasWearingColour(x,z) & -(y=z)) & 
+%%            exists x exists y (WasWearingColour(x, y)) & -( exists x exists y exists z (WasWearingColour(x, y) & WasWearingColour(x, z) & -(y=z)) ). 
+           exists x exists y (WasWearingColour(x, y)).
 
 %% A20: "Nobody in Abbey House was naked. **"
 
@@ -180,7 +194,11 @@ formulas(assumptions).
 %% 1      all x (LivesInAbbeyHouse(x) -> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
 %% 1      all x all y (LivesInAbbeyHouse(x) <-> WasWearingColour(x,y) & (y=blue | y=purple | y=black)).
 %% 1      all x all y (LivesInAbbeyHouse(x) -> WasWearingColour(x,y) & (y=blue | y=purple | y=black)).
-
+%% 1      -(exists x exists y (LivesInAbbeyHouse(x) & -WasWearingColour(x,y) & (y=blue | y=purple | y=black))).
+%% 1      -(exists x exists y (LivesInAbbeyHouse(x) & -WasWearingColour(x,y)  )).
+%% 0      all x all y (LivesInAbbeyHouse(x) & (sir_Hugh=x | lady_Anne=x | dr_Burley=x | master_Bram=x) <-> WasWearingColour(x,y) & (y=blue | y=purple | y=black)).
+%% 1      all x (LivesInAbbeyHouse(x) -> -(exists y (-WasWearingColour(x,y) & (y=blue | y=purple | y=black) )) ).
+%%         -(exists x (LivesInAbbeyHouse(x) & -WasWearingColour(x,blue) & -WasWearingColour(x,purple) & -WasWearingColour(x,black))).
          -(exists x exists y (LivesInAbbeyHouse(x) & -WasWearingColour(x,y) & (y=blue | y=purple | y=black))).
 
 end_of_list.
