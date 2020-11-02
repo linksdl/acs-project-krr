@@ -139,7 +139,10 @@ formulas(assumptions).
 %%          all x all y(Aristocrat(x)  & -Aristocrat(y) & Loves(x,y) & Loves(y, x) -> -Vain(x)).
 %%          all x all y(Aristocrat(x) -> (-Vain(x) <-> Loves(x, y) & -Aristocrat(y))).
 %% 1            all x all y(Aristocrat(x) <-> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).
-           all x all y(Aristocrat(x) <-> (Loves(x, y) & -Aristocrat(y) -> -Vain(x))).
+%% 0           all x all y(Aristocrat(x) <-> (Loves(x, y) & -Aristocrat(y) -> -Vain(x))).
+%% 1            all x all y(Aristocrat(x) -> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).
+%% 0            all x all y(Aristocrat(x) -> (-Vain(x) & -Aristocrat(y) -> Loves(x, y))).
+              all x all y (Aristocrat(x) & Loves(x, y) & -Aristocrat(y) -> -Vain(x)).
 
 %% A16: "Those who are vain always look at themselves in mirrors."
 
