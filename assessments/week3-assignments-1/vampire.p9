@@ -126,6 +126,8 @@ formulas(assumptions).
 %%       -(exists x exists y exists z (WasWearingColour(lady_Anne, x) & WasWearingColour(y,z) & LivesInAbbeyHouse(y) & (x=z))).
 %%       all x all y all z (WasWearingColour(lady_Anne, x) -> WasWearingColour(z,y) & -(y=x)).
          all x all y all z (WasWearingColour(lady_Anne, x) -> WasWearingColour(z,y) & -(y=x) & LivesInAbbeyHouse(z)).
+%% 1     all x all y all z (WasWearingColour(lady_Anne, x) -> WasWearingColour(z,y) & -(y=x) & LivesInAbbeyHouse(z) & -(z=lady_Anne)).
+%%        all x all y all z (WasWearingColour(lady_Anne,x) & WasWearingColour(y, z) & LivesInAbbeyHouse(y) -> (x =z) )).
 
 %% A15: "Aristocrats are always vain unless they are in love with someone 
 %%         who is not an Aristocrat."
