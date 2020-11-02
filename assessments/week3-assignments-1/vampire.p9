@@ -69,7 +69,11 @@ formulas(assumptions).
 %% A3: "Aristocrats only wear blue or purple and never study logic."
 %%      all x (Aristocrat(x) <-> (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) ).
 %% 0
-        all x all y (Aristocrat(x) -> WasWearingColour(x, y) & (y= blue | y = purple) & -Logician(x) ).
+%% 1   all x all y (Aristocrat(x) -> WasWearingColour(x, y) & (y= blue | y = purple) & -Logician(x) ).
+%% 1   all x all y (Aristocrat(x) <-> WasWearingColour(x, y) & (y= blue | y = purple) & -Logician(x) ).
+%% 0   all x ( (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) -> Aristocrat(x) ).
+%% 0   all x (Aristocrat(x) -> (WasWearingColour(x, blue) | WasWearingColour(x, purple)) & -Logician(x) ).
+      all x all y ( Aristocrat(x) -> WasWearingColour(x, y) & (y= blue | y = purple) & ( Aristocrat(x) -> -Logician(x) ) ).
 
 %% A4: "Sir Hugh loves nobody except himself."
 
@@ -77,21 +81,13 @@ formulas(assumptions).
 
 %% A5: "Lady Anne loves everyone who is cleverer than Sir Hugh"
 
-       exists x (Loves(lady_Anne,x) & IsClevererThan(x, sir_Hugh)).
-%% 0        all x (Loves(lady_Anne,x) -> IsClevererThan(x, sir_Hugh)).
+       all x (IsClevererThan(x, sir_Hugh) -> Loves(lady_Anne, x)).
 
 %% A6: "At least one of the inhabitants of Abbey House is a logician."
 
-         exists x (LivesInAbbeyHouse(x) & Logician(x)).
+       exists x (LivesInAbbeyHouse(x) & Logician(x)).
 
 %% A7: "Logicians are always cleverer than those who do not study logic."
-
-%%      all x all y (Logician(x) & IsClevererThan(x, y) -> -Logician(y)).
-%%      all x all y (Logician(x) & - Logician(y) -> IsClevererThan(x, y)).
-
-%%      all x (Logician(x) -> exists y ( -Logician(y) & IsClevererThan(x, y))).
-%%      all x exists y (Logician(x) & IsClevererThan(x, y) -> -Logician(y)).
-%%  1      all x all y(Logician(x) & -Logician(y) <-> IsClevererThan(x, y) ).
 
         all x all y (Logician(x) & -Logician(y) -> IsClevererThan(x, y) ).
 
@@ -101,20 +97,14 @@ formulas(assumptions).
 
 %% A9: "Logicians who are loved by aristocrats are always shy."
 
-%%      all x all y (Logicians(x) & Aristocrat(y) & Loves(y, x) -> Shy(x)).
-%%      exists x all y (Logicians(x) & Aristocrat(y) & Loves(y, x) -> Shy(x)).
-%% 0     all x  all y (Logicians(x) & Loves(y, x) & Aristocrat(y) -> Shy(x)).
-        all x  all y (Logician(x) & Loves(y, x) & Aristocrat(y) -> Shy(x)).
+       all x  all y (Logician(x) & Loves(y, x) & Aristocrat(y) -> Shy(x)).
 
 %% A10: "Nobody loves a shy vampire."
 
-        - (exists x exists y (Loves(x, y) & Shy(y) & Vampire(y))).
+       - (exists x exists y (Loves(x, y) & Shy(y) & Vampire(y))).
 
 %% A11: "Master Bram never wears any colour other than black."
 
-%%      exists x (WasWearingColour(master_Bram, x) & (x = black)).
-%%       all x (-WasWearingColour(master_Bram, x) -> x=black).
-%% 1        all x (WasWearingColour(master_Bram, x) <-> x=black).
          all x (WasWearingColour(master_Bram, x) -> x=black).
 
 %% A12: "Black is not the same as blue or puple."
@@ -128,9 +118,11 @@ formulas(assumptions).
 %% A14: "Lady Anne never wears the same color as anyone else in Abbey House."
 
 %%       all x (LivesInAbbeyHouse(lady_Anne) & WasWearingColour(lady_Anne,x) -> all y all z(WasWearingColour(z, y) & (LivesInAbbeyHouse(z) & -(x = y))))
-%%        all x all y all z (LivesInAbbeyHouse(lady_Anne) & WasWearingColour(lady_Anne, x) & WasWearingColour(z, y) & LivesInAbbeyHouse(z) -> -(x = y)).
+%%       all x all y all z (LivesInAbbeyHouse(lady_Anne) & WasWearingColour(lady_Anne, x) & WasWearingColour(z, y) & LivesInAbbeyHouse(z) -> -(x = y)).
 %%       -(exists x exists y (WasWearingColour(lady_Anne, x) & WasWearingColour(y,x) & LivesInAbbeyHouse(y))).
-         -(exists x exists y exists z (WasWearingColour(lady_Anne, x) & WasWearingColour(y,z) & LivesInAbbeyHouse(y) & (x=z))).
+%%       -(exists x exists y exists z (WasWearingColour(lady_Anne, x) & WasWearingColour(y,z) & LivesInAbbeyHouse(y) & (x=z))).
+%%       all x all y all z (WasWearingColour(lady_Anne, x) -> WasWearingColour(z,y) & -(y=x)).
+         all x all y all z (WasWearingColour(lady_Anne, x) -> WasWearingColour(z,y) & -(y=x) & LivesInAbbeyHouse(z)).
 
 %% A15: "Aristocrats are always vain unless they are in love with someone 
 %%         who is not an Aristocrat."
@@ -138,14 +130,14 @@ formulas(assumptions).
 %%        all x all y (Aristocrat(x) & Loves(x, y) & Loves(y, x) & -Aristocrat(y) -> -Vain(x)).         
 %%        all x all y ((Aristocrat(x) & -Vain(x)) -> (Loves(x, y) & Loves(y, x) & -Aristocrat(y)) ).
 %% 1          all x all y(Aristocrates(x)  & -Aristocrates(y) & Loves(x,y) & Loves(y, x) <-> -Vain(x) & Aristocrates(x)).
-          all x all y(Aristocrat(x)  & -Aristocrat(y) & Loves(x,y) & Loves(y, x) -> -Vain(x)).
+%%          all x( Aristocrat (x) -> all y (Loves(x,y) & -Aristocrat(y) -> -Vain(x))).
+%%          all x all y(Aristocrat(x)  & -Aristocrat(y) & Loves(x,y) & Loves(y, x) -> -Vain(x)).
+%%          all x all y(Aristocrat(x) -> (-Vain(x) <-> Loves(x, y) & -Aristocrat(y))).
+%% 1            all x all y(Aristocrat(x) <-> (-Vain(x) -> Loves(x, y) & -Aristocrat(y))).
+           all x all y(Aristocrat(x) <-> (Loves(x, y) & -Aristocrat(y) -> -Vain(x))).
 
 %% A16: "Those who are vain always look at themselves in mirrors."
 
-%%        exists x (Vain(x) -> SawInMirror(x, x)).
-%%        exists x (Vain(x) & SawInMirror(x, x)).
-%%        all x (Vain(x) -> SawInMirror(x, x)). 
-%% 1          all x (Vain(x) <-> SawInMirror(x, x)).
           all x (Vain(x) -> SawInMirror(x, x)).
 
 %% A17: "Vampires cannot be seen in mirrors. And if something has no reflection
@@ -157,19 +149,22 @@ formulas(assumptions).
 %%          It must have been someone who lives in Abbey House"
 
        exists x (SawInMirror(dr_Burley, x) & WasWearingColour(x,black) & LivesInAbbeyHouse(x)).
-%% 0          all x (WasWearingColour(x,black) & SawInMirror(dr_Burley,x) -> LivesInAbbeyHouse(x)).
 
 %% A19: "When she looked in the mirror, Lady Anne saw people wearing only
 %%          two different colours of clothing. *"
 
-%%        SawInMirror(lady_Anne, lady_Anne) -> all x all y all z (SawInMirror(lady_Anne, z)& WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y)).
-       all z ( SawInMirror(lady_Anne, z) -> exists x exists y (WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y))).
-
+%% 0       all z ( SawInMirror(lady_Anne, z) -> exists x exists y (WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y))).
 %% 0         all x (SawInMirror(lady_Anne, lady_Anne) -> exists y exists z (WasWearingColour(x,y) & WasWearingColour(x,z) & -(y=z)) & -(exists y exists z exists u (WasWearingColour(x,y) & WasWearingColour(x,z) & WasWearingColour(x,u) & -(y=z) & -(z=u) & -(u=y)) ) ).
+%% 0         SawInMirror(lady_Anne, lady_Anne) & all x (LivesInAbbeyHouse(x) -> exists y exists z (WasWearingColour(x,y) & WasWearingColour(x,z) & -(y=z))).
+%% 0         all x all y (SawInMirror(lady_Anne, x) & WasWearingColour(x,y) -> (y = blue | y = purple)  | (y = blue | y = black) | (y = black | y = purple)).
+%% 0         all x all y ( WasWearingColour(x,y) -> (y = blue | y = purple)  | (y = blue | y = black) | (y = black | y = purple)).
+%% 0         SawInMirror(lady_Anne, lady_Anne) & all x all y all z (SawInMirror(lady_Anne, z)& WasWearingColour(z, x) & WasWearingColour(z, y) & -(x = y)).
 
 %% A20: "Nobody in Abbey House was naked. **"
 
 %% 1      all x (LivesInAbbeyHouse(x) <-> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
+%% 1          all x (LivesInAbbeyHouse(x) <-> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
+%% 0         -(exists x (LivesInAbbeyHouse(x) & (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black)) )).
           all x (LivesInAbbeyHouse(x) -> (WasWearingColour(x,blue) | WasWearingColour(x,purple) | WasWearingColour(x,black))).
 
 end_of_list.
@@ -178,9 +173,7 @@ formulas(goals).
 
 %% GOAL: "In Abbey House lives one and only one vampire, whose name is X ! ***"
 
-%%      exists x (LivesInAbbeyHouse(x) & Vampire(master_Bram)).
-%%     exists x (LivesInAbbeyHouse(x) & Vampire(x) & (x = lady_Anne)).
-       all x (LivesInAbbeyHouse(x) & Vampire(x) -> x = lady_Anne).
+       all x (LivesInAbbeyHouse(x) & Vampire(x) <-> x = lady_Anne).
 
 end_of_list.
 
