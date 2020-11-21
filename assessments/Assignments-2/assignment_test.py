@@ -119,12 +119,12 @@ def compute_model():
             domain.add(d1)
             city.add(d1)
 
-        for j in range(1, t_n + 1):
+        for j in range(c_n + 1, c_n + t_n + 1):
             d2 = 't_' + str(j)
             domain.add(d2)
             town.add(d2)
 
-        for k in range(1, v_n + 1):
+        for k in range(c_n + t_n + 1, v_n + c_n + t_n + 1):
             d3 = 'v_' + str(k)
             domain.add(d3)
             village.add(d3)
