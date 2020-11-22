@@ -74,29 +74,36 @@ def query_combinations(lr):
 
 
 def query_combinations1(lr, domain_s):
-    rlist = []
+    return_list = []
     num = len(domain_s) - 1
     total_list = list(combinations(lr, num))
 
     for x in total_list:
-        key_list = []
-        for m in x:
-            key_list.append(m[0])
-
-        data_dict = {}
-        for key in key_list:
-            data_dict[key] = data_dict.get(key, 0) + 1
+        road = set()
+        for rrr in x:
+            road.add(rrr)
+            road.add((rrr[1], rrr[0]))
 
         flag = True
-        for d in domain_s:
-            if data_dict.get(d) is not None:
-                if data_dict.get(d) > 3:
-                    flag = False
-                    continue
+        for d_num in domain_s:
+            road_count = 0
+            v_road_count = 0
+            for r_num in road:
+                if d_num == r_num[0]:
+                    road_count += 1
+
+                if d_num[0] == 'v' and d_num == r_num[0]:
+                    v_road_count += 1
+
+            if road_count > 3 or v_road_count > 1:
+                flag = False
+                # print('*********', road_count, road)
+                continue
 
         if flag:
-            rlist.append(x)
-    return rlist
+            return_list.append(road)
+
+    return return_list
 
 
 def compute_model():
@@ -152,22 +159,13 @@ def compute_model():
                         # print(di, '--->', dj)
                         road_list.append(r)
 
-        # print(' Domain:', sorted(domain))
-        # print('   City:', sorted(city))
-        # print('   Town:', sorted(town))
-        # print('Village:', sorted(village))
         road_num = (c_n + t_n + v_n) * (c_n + t_n + v_n - 1) / 2 - v_n * (v_n - 1) / 2 - t_n * (t_n - 1) / 2
         print('道路数：', road_num, len(road_list), road_list)
         roads = query_combinations1(road_list, domain)
         print('组合数：', len(roads))
 
-        for ri in roads:
-            road = set()
-            for rrr in ri:
-                road.add(rrr)
-                road.add((rrr[1], rrr[0]))
+        for road in roads:
 
-            # print('   Road:', sorted(road))
             axiom_1 = True
             axiom_2 = True
             axiom_3 = True
@@ -244,7 +242,6 @@ def compute_model():
                 # print('   Road:', sorted(road))
                 # print('      >:', sorted(larger))
 
-
                 key_domain = set()
                 for dddd in sorted(domain):
                     key_domain.add(dddd)
@@ -279,8 +276,8 @@ def compute_model():
                 }
                 models.append(model)
                 print('-----------------------------------', num_k)
-                if num_k == 286:
-                    break
+                # if num_k == 286:
+                #     break
 
         print('======================', node, '======================')
     return models
