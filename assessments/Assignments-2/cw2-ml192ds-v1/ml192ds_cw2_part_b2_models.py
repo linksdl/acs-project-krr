@@ -4,14 +4,13 @@
 """
 @Project : acs-project-krr      
 @File    : all_models.py
-@Author  : Billy Sheng 
-@Contact : shengdl999links@gmail.com  
-@Date    : 2020/11/20 3:55 下午
+@Author  : Daodin Sheng  ml192ds
+@Contact : ml192ds@leeds.ac.uk
+@Date    : 2020/11/20 3:55
 @Version  : 1.0.0
 @License : Apache License 2.0
 @Desc    : None
 """
-
 
 MODELS = [
     # No 1
@@ -152,12 +151,10 @@ MODELS = [
         "Road": {(1, 2), (2, 1),
                  (1, 3), (3, 1),
                  (1, 4), (4, 1),
-
                  (2, 5), (5, 2),
                  (2, 6), (6, 2),
                  (3, 7), (7, 3),
                  (3, 8), (8, 3),
-
                  (4, 9), (9, 4),
                  (4, 10), (10, 4)
                  },
@@ -168,46 +165,4 @@ MODELS = [
               }
     },
 ]
-
-nodes = []
-links = []
-for i in range(len(MODELS)):
-    m = "m"+str(i)+"_"
-    model = MODELS[i]
-
-    city_nodes = model['City']
-    town_nodes = model['Town']
-    village_nodes = model['Village']
-    road_nodes = model['Road']
-
-    for c in city_nodes:
-        cnode = {"name": m+str(c), "symbolSize": 66, "itemStyle": {"normal": {"color": "red"}}}
-        nodes.append(cnode)
-
-    for t in town_nodes:
-        tnode = {"name": m+str(t), "symbolSize": 40, "itemStyle": {"normal": {"color": "blue"}}}
-        nodes.append(tnode)
-
-    for v in village_nodes:
-        vnode = {"name": m+str(v), "symbolSize": 25, "itemStyle": {"normal": {"color": "green"}}}
-        nodes.append(vnode)
-
-
-    for r in road_nodes:
-        links.append({"source": m+str(r[0]), "target": m+str(r[1])})
-
-
-import json
-import os
-
-from pyecharts import options as opts
-from pyecharts.charts import Graph, Page
-
-graph = (
-    Graph(init_opts = opts.InitOpts(width="1500px", height="1000px"))
-        .add("", nodes, links, repulsion=8000)
-        .set_global_opts(
-            title_opts=opts.TitleOpts(title="Graph-基本示例"))
-)
-graph.render("assigment1.html")
 
